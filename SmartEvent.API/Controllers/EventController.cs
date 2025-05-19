@@ -16,9 +16,16 @@ public class EventsController : ControllerBase
 
     // GET: api/events
     [HttpGet]
-    public async Task<IActionResult> GetEvents()
+    public async Task<IActionResult> GetEvents(string? search)
     {
-        var events = await _context.Events.ToListAsync();
+        var query = _context.Events.AsQueryable();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(e => e.Title.Contains(search) || e.Description.Contains(search));
+        }
+
+        var events = await query.ToListAsync();
         return Ok(events);
     }
 
@@ -54,6 +61,7 @@ public class EventsController : ControllerBase
         existingEvent.Title = ev.Title;
         existingEvent.Description = ev.Description;
         existingEvent.Date = ev.Date;
+        existingEvent.Category = ev.Category;
 
         await _context.SaveChangesAsync();
         return Ok(existingEvent);

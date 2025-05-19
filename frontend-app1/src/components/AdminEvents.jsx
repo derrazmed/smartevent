@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { Row, Col, Form, Button, Card, ListGroup } from 'react-bootstrap';
 
 function AdminEvents() {
   const [events, setEvents] = useState([]);
-  const [form, setForm] = useState({ title: '', description: '', date: '' });
+  const [form, setForm] = useState({ title: '', description: '', date: '', category: 'music' });
 
   const fetchEvents = async () => {
     try {
-      const res = await fetch('https://localhost:7183/api/events');
+      const res = await fetch('https://localhost:7237/api/events');
       const data = await res.json();
       setEvents(data);
     } catch (err) {
@@ -23,22 +24,16 @@ function AdminEvents() {
   };
 
   const handleCreate = async () => {
-    const eventPayload = {
-      title: form.title,
-      description: form.description,
-      date: form.date
-    };
-
     try {
-      const response = await fetch('https://localhost:7183/api/events', {
+      const response = await fetch('https://localhost:7237/api/events', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(eventPayload)
+        body: JSON.stringify(form)
       });
 
       if (response.ok) {
         fetchEvents();
-        setForm({ title: '', description: '', date: '' });
+        setForm({ title: '', description: '', date: '', category: 'music' });
       } else {
         console.error('Failed to create event');
       }
@@ -49,7 +44,7 @@ function AdminEvents() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`https://localhost:7183/api/events/${id}`, { method: 'DELETE' });
+      await fetch(`https://localhost:7237/api/events/${id}`, { method: 'DELETE' });
       fetchEvents();
     } catch (err) {
       console.error('Error deleting event:', err);
@@ -57,37 +52,83 @@ function AdminEvents() {
   };
 
   return (
-    <div>
-      <h2>Manage Events</h2>
-      <input
-        name="title"
-        value={form.title}
-        onChange={handleChange}
-        placeholder="Title"
-      />
-      <input
-        name="description"
-        value={form.description}
-        onChange={handleChange}
-        placeholder="Description"
-      />
-      <input
-        name="date"
-        type="date"
-        value={form.date}
-        onChange={handleChange}
-      />
-      <button onClick={handleCreate}>Add Event</button>
+    <>
+      <Card className="mb-4 shadow">
+        <Card.Body>
+          <h4>Add New Event</h4>
+          <Form>
+            <Row className="mb-3">
+              <Col>
+                <Form.Control
+                  name="title"
+                  value={form.title}
+                  onChange={handleChange}
+                  placeholder="Title"
+                />
+              </Col>
+              <Col>
+                <Form.Control
+                  name="description"
+                  value={form.description}
+                  onChange={handleChange}
+                  placeholder="Description"
+                />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col>
+                <Form.Control
+                  name="date"
+                  type="date"
+                  value={form.date}
+                  onChange={handleChange}
+                />
+              </Col>
+              <Col>
+                <Form.Select
+                  name="category"
+                  value={form.category}
+                  onChange={handleChange}
+                >
+                  <option value="music">Music</option>
+                  <option value="tech">Tech</option>
+                  <option value="art">Art</option>
+                  <option value="sports">Sports</option>
+                  <option value="business">Business</option>
+                </Form.Select>
+              </Col>
+              <Col>
+                <Button variant="primary" onClick={handleCreate}>
+                  Add Event
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </Card.Body>
+      </Card>
 
-      <ul>
-        {events.map(ev => (
-          <li key={ev.id}>
-            <strong>{ev.title}</strong> - {new Date(ev.date).toLocaleDateString()}
-            <button onClick={() => handleDelete(ev.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <Card className="mb-5 shadow">
+        <Card.Body>
+          <h4>Existing Events</h4>
+          {events.length === 0 ? (
+            <p>No events found.</p>
+          ) : (
+            <ListGroup>
+              {events.map(ev => (
+                <ListGroup.Item key={ev.id} className="d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong>{ev.title}</strong> — {new Date(ev.date).toLocaleDateString()} — <em>{ev.category}</em>
+                  </div>
+                  <Button variant="danger" size="sm" onClick={() => handleDelete(ev.id)}>
+                    Delete
+                  </Button>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          )}
+        </Card.Body>
+      </Card>
+    </>
   );
 }
 

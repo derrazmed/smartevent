@@ -52,7 +52,9 @@ namespace SmartEvent.API.Controllers
                 .Select(a => new {
                     a.EventId,
                     a.Event.Title,
-                    a.Event.Date
+                    a.Event.Date,
+                    a.Event.Description,
+                    a.Event.Category,
                 })
                 .ToListAsync();
 

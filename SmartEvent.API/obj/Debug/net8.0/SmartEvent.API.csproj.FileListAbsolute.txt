@@ -117,3 +117,4 @@ C:\Users\PC\source\repos\SmartEvent\SmartEvent.API\bin\Debug\net8.0\Swashbuckle.
 C:\Users\PC\source\repos\SmartEvent\SmartEvent.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\PC\source\repos\SmartEvent\SmartEvent.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\PC\source\repos\SmartEvent\SmartEvent.API\obj\Debug\net8.0\SmartEvent.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\PC\source\repos\SmartEvent\SmartEvent.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

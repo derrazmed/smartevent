@@ -84,6 +84,15 @@
         "tags": [
           "Events"
         ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -287,6 +296,10 @@
           "date": {
             "type": "string",
             "format": "date-time"
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
           },
           "applications": {
             "type": "array",

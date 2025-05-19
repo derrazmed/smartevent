@@ -15,7 +15,7 @@ function EventApplicationForm({ event, onClose }) {
     e.preventDefault();
     // POST to API here
     try {
-      const response = await fetch('https://localhost:7183/api/applications', {
+      const response = await fetch('https://localhost:7237/api/applications', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, eventId: event.id })

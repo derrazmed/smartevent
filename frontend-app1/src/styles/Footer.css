@@ -1,0 +1,35 @@
+.custom-footer {
+  background-color: #212529; /* Bootstrap dark shade */
+  color: #f8f9fa;
+  font-size: 0.95rem;
+  border-top: 1px solid #444;
+}
+
+.footer-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.footer-heading {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.footer-link {
+  color: #f8f9fa;
+  text-decoration: none;
+}
+
+.footer-icon {
+  color: #f8f9fa;
+  transition: color 0.3s ease;
+}
+
+.footer-icon:hover {
+  color: #0d6efd;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+  color: #ddd;
+}

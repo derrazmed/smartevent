@@ -1,0 +1,16 @@
+.custom-navbar {
+  background-color: #f8f9fa; /* Light gray/white background */
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand,
+.custom-navbar .dropdown-toggle {
+  color: #343a40 !important; /* Dark text */
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .dropdown-toggle:hover {
+  color: #0d6efd !important; /* Bootstrap primary blue on hover */
+}
