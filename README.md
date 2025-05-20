@@ -98,17 +98,14 @@ Frontend (React)
    ```bash
     npm run dev
 
-🧩 Technologies Utilisées
-Backend
-ASP.NET Core Web API
+## 🧩 Technologies Utilisées
 
-Entity Framework Core
+### 🖥️ Backend
+- **ASP.NET Core Web API**
+- **Entity Framework Core**
+- **MySQL**
 
-MySQL
-
-Frontend
-React.js
-
-React-Bootstrap
-
-Context API (authentification)
+### 💻 Frontend
+- **React.js**
+- **React-Bootstrap**
+- **Context API** (authentification)
