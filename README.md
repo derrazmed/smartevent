@@ -92,16 +92,23 @@ SmartEvent est une application web complète permettant la gestion, la création
 Frontend (React)
 1. Aller dans le dossier frontend-app1
 2. Installer les dépendances :
-  npm install
+   ```bash
+   npm install
 3. Démarrer l’application :
-npm run dev
+   ```bash
+    npm run dev
 
 🧩 Technologies Utilisées
 Backend
-- ASP.NET Core Web API
-- Entity Framework Core
-- MySQL
+ASP.NET Core Web API
+
+Entity Framework Core
+
+MySQL
+
 Frontend
-- React.js
-- React-Bootstrap
-- Context API (authentification)
+React.js
+
+React-Bootstrap
+
+Context API (authentification)
