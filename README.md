@@ -9,50 +9,55 @@ SmartEvent est une application web complète permettant la gestion, la création
 ## 📁 Structure du Projet
 
 ### Backend (ASP.NET Core)
-SmartEvent.API/
-├── Controllers/
 
-│ ├── ApplicationsController.cs
-│ ├── EventController.cs
-│ └── UsersController.cs
-├── appsettings.json
-SmartEvent.Data/
-├── Entities/
-│ ├── Event.cs
-│ ├── EventApplication.cs
-│ └── User.cs
-├── DTOs/
-│ └── CreateEventDto.cs
-├── Migrations/
-│ └── AppDbContext.cs
-SmartEvent.Infrastructure/
-├── Models/
-│ ├── LoginModel.cs
-│ └── RegistrationModel.cs
+- **SmartEvent.API**
+  - Controllers
+    - ApplicationsController.cs
+    - EventController.cs
+    - UsersController.cs
+  - appsettings.json
+
+- **SmartEvent.Data**
+  - Entities
+    - Event.cs
+    - EventApplication.cs
+    - User.cs
+  - DTOs
+    - CreateEventDto.cs
+  - Migrations
+    - AppDbContext.cs
+
+- **SmartEvent.Infrastructure**
+  - Models
+    - LoginModel.cs
+    - RegistrationModel.cs
+
+---
 
 ### Frontend (React.js)
-frontend-app1/
-├── src/
-│ ├── components/
-│ │ ├── AdminEvents.jsx
-│ │ ├── EventApplicationForm.jsx
-│ │ ├── LoginForm.jsx
-│ │ ├── RegisterForm.jsx
-│ │ ├── Navbar.jsx
-│ │ └── Footer.jsx
-│ ├── context/
-│ │ └── AuthContext.jsx
-│ ├── pages/
-│ │ ├── Home.jsx
-│ │ ├── Events.jsx
-│ │ ├── Profile.jsx
-│ │ ├── AdminDashboard.jsx
-│ │ ├── About.jsx
-│ │ ├── Contact.jsx
-│ │ └── SecurityPolicy.jsx
-│ └── styles/
-│ ├── Footer.css
-│ └── Navbar.css
+
+- **frontend-app1**
+  - src
+    - components
+      - AdminEvents.jsx
+      - EventApplicationForm.jsx
+      - LoginForm.jsx
+      - RegisterForm.jsx
+      - Navbar.jsx
+      - Footer.jsx
+    - context
+      - AuthContext.jsx
+    - pages
+      - Home.jsx
+      - Events.jsx
+      - Profile.jsx
+      - AdminDashboard.jsx
+      - About.jsx
+      - Contact.jsx
+      - SecurityPolicy.jsx
+    - styles
+      - Footer.css
+      - Navbar.css
 
 ---
 
@@ -61,7 +66,7 @@ frontend-app1/
 ### Utilisateurs
 - Enregistrement et connexion
 - Gestion du profil utilisateur
-- Navigation sécurisée via contexte d’authentification
+- Navigation sécurisée via le contexte d’authentification
 
 ### Événements
 - Affichage de la liste des événements (publics)
@@ -69,7 +74,7 @@ frontend-app1/
 - Création, édition et suppression d’événements (Admin)
 
 ### Administrateur
-- Accès à un dashboard
+- Accès à un tableau de bord
 - Gestion complète des événements
 - Suivi des candidatures aux événements
 
@@ -77,9 +82,9 @@ frontend-app1/
 
 ## 🚀 Lancement du Projet
 
-Backend (.NET Core)
+### Backend (.NET Core)
 1. Ouvrir la solution `SmartEvent.sln` dans Visual Studio
-2. Appliquer les migrations si nécessaire :
+2. Appliquer les migrations :
    ```bash
    dotnet ef database update
 3. Lancer le projet API (SmartEvent.API)
