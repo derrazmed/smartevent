@@ -89,7 +89,7 @@ SmartEvent est une application web complète permettant la gestion, la création
    dotnet ef database update
 3. Lancer le projet API (SmartEvent.API)
 
-Frontend (React)
+### Frontend (React)
 1. Aller dans le dossier frontend-app1
 2. Installer les dépendances :
    ```bash
