@@ -11,6 +11,7 @@ SmartEvent est une application web complète permettant la gestion, la création
 ### Backend (ASP.NET Core)
 SmartEvent.API/
 ├── Controllers/
+
 │ ├── ApplicationsController.cs
 │ ├── EventController.cs
 │ └── UsersController.cs
