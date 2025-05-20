@@ -17,6 +17,27 @@
   },
   {
     "ContainingType": "SmartEvent.API.Controllers.ApplicationsController",
+    "Method": "CancelApplication",
+    "RelativePath": "api/Applications/cancel",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "eventId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartEvent.API.Controllers.ApplicationsController",
     "Method": "GetApplicationsByUserId",
     "RelativePath": "api/Applications/user/{userId}",
     "HttpMethod": "GET",

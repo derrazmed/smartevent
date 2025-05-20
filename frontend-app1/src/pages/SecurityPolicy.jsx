@@ -8,25 +8,25 @@ function SecurityPolicy() {
         <Col md={8}>
           <Card className="shadow-sm p-4">
             <Card.Body>
-              <Card.Title className="mb-4 text-center">Security Policy</Card.Title>
+              <Card.Title className="mb-4 text-center">Politique de confidentialité</Card.Title>
               
               <Card.Text>
-                At <strong>EventManager</strong>, your security and privacy are our top priorities.
+                Chez <strong>EventManager</strong>, votre sécurité et votre confidentialité sont nos priorités absolues.
               </Card.Text>
 
-              <h5>Data Protection</h5>
+              <h5>Protection des données</h5>
               <Card.Text>
-                We use encrypted connections (HTTPS) for all data transmissions. Passwords are stored securely with hashing algorithms to ensure they are never saved in plain text.
+                Nous utilisons des connexions chiffrées (HTTPS) pour toutes les transmissions de données. Les mots de passe sont stockés de manière sécurisée grâce à des algorithmes de hachage, et ne sont jamais enregistrés en clair.
               </Card.Text>
 
-              <h5>User Privacy</h5>
+              <h5>Vie privée des utilisateurs</h5>
               <Card.Text>
-                We do not share your personal information with third parties without your consent. You remain in control of the data you choose to share.
+                Nous ne partageons pas vos informations personnelles avec des tiers sans votre consentement. Vous gardez le contrôle sur les données que vous choisissez de partager.
               </Card.Text>
 
-              <h5>Account Security</h5>
+              <h5>Sécurité des comptes</h5>
               <Card.Text>
-                We encourage users to create strong passwords and change them regularly. Please contact support immediately if you suspect unauthorized activity.
+                Nous recommandons aux utilisateurs de créer des mots de passe forts et de les changer régulièrement. Veuillez contacter le support immédiatement si vous suspectez une activité non autorisée.
               </Card.Text>
             </Card.Body>
           </Card>

@@ -1,3 +1,7 @@
+// Ce composant React affiche une liste d'événements récupérés depuis une API
+// Il permet également à un utilisateur connecté de postuler à un événement en remplissant un formulaire
+// Il inclut une recherche dynamique par mot-clé et un affichage conditionnel selon le statut de chargement ou de candidature
+
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,26 +11,25 @@ import { useAuth } from '../context/AuthContext';
 function Events() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [appliedEventIds, setAppliedEventIds] = useState([]);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [appliedEventIds, setAppliedEventIds] = useState([]); // Liste des événements déjà postulés
+  const [selectedEvent, setSelectedEvent] = useState(null); // Événement actuellement sélectionné pour postuler
 
   const query = new URLSearchParams(location.search);
   const searchParam = query.get('search') || '';
 
-  const [searchTerm, setSearchTerm] = useState(searchParam);
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(searchParam); // Terme de recherche
+  const [events, setEvents] = useState([]); // Liste des événements à afficher
+  const [loading, setLoading] = useState(false); // Indique si les données sont en cours de chargement
 
   const { user: userData } = useAuth();
 
-  // Form data for application modal
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({ // Données du formulaire de candidature
     phone: '',
     address: '',
     paymentMethod: 'credit_card'
   });
 
-  // Fetch events on search param change
+  // Récupérer les événements selon le mot-clé de recherche
   useEffect(() => {
     setSearchTerm(searchParam);
     const fetchEvents = async () => {
@@ -35,7 +38,7 @@ function Events() {
         const res = await axios.get(`https://localhost:7237/api/events?search=${encodeURIComponent(searchParam)}`);
         setEvents(res.data);
       } catch (err) {
-        console.error('Failed to fetch events:', err);
+        console.error('Échec de la récupération des événements :', err);
         setEvents([]);
       } finally {
         setLoading(false);
@@ -44,7 +47,7 @@ function Events() {
     fetchEvents();
   }, [location.search, searchParam]);
 
-  // Fetch user's applied events
+  // Récupérer les événements pour lesquels l'utilisateur a postulé
   useEffect(() => {
     if (userData) {
       fetch(`https://localhost:7237/api/applications/user/${userData.id}`)
@@ -60,24 +63,27 @@ function Events() {
           const uniqueEventIds = [...new Set(data.map(app => app.eventId))];
           setAppliedEventIds(uniqueEventIds);
         })
-        .catch(err => console.error('Failed to fetch applications:', err.message));
+        .catch(err => console.error('Échec de la récupération des candidatures :', err.message));
     } else {
       setAppliedEventIds([]);
     }
   }, [userData]);
 
+  // Ouvrir le formulaire de candidature pour un événement donné
   const handleApply = (event) => {
     if (!userData) {
-      alert("Please log in to apply for an event.");
+      alert("Veuillez vous connecter pour postuler à un événement.");
       return;
     }
     setSelectedEvent(event);
   };
 
+  // Gestion des changements de saisie dans le formulaire
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Soumettre la candidature
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!userData || !selectedEvent) return;
@@ -105,14 +111,14 @@ function Events() {
         setFormData({ phone: '', address: '', paymentMethod: 'credit_card' });
       } else {
         const errorData = await response.json();
-        alert(errorData.message || 'Failed to submit application');
+        alert(errorData.message || 'Échec de la soumission de la candidature');
       }
     } catch (error) {
       console.error(error.message);
     }
   };
 
-  // Update URL with new search param on form submit (does NOT reload page)
+  // Recherche : mise à jour de l'URL sans recharger la page
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     navigate(`/events?search=${encodeURIComponent(searchTerm.trim())}`);
@@ -121,19 +127,19 @@ function Events() {
   return (
     <Container className="my-4">
       <h2 className="mb-4">
-        Events {searchParam && `- Search results for "${searchParam}"`}
+        Événements {searchParam && `- Résultats de recherche pour "${searchParam}"`}
       </h2>
 
       <Form onSubmit={handleSearchSubmit} className="mb-4">
         <InputGroup>
           <Form.Control
             type="text"
-            placeholder="Search events..."
+            placeholder="Rechercher des événements..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Button type="submit" variant="primary" disabled={!searchTerm.trim()}>
-            Search
+            Rechercher
           </Button>
         </InputGroup>
       </Form>
@@ -150,7 +156,7 @@ function Events() {
                 <Card.Body>
                   <Card.Title>{ev.title}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
-                    {new Date(ev.date).toLocaleDateString()} &mdash; {ev.category || 'Uncategorized'}
+                    {new Date(ev.date).toLocaleDateString()} &mdash; {ev.category || 'Non catégorisé'}
                   </Card.Subtitle>
                   <Card.Text>{ev.description}</Card.Text>
 
@@ -167,7 +173,7 @@ function Events() {
                       cursor: appliedEventIds.includes(ev.id) ? 'not-allowed' : 'pointer'
                     }}
                   >
-                    {appliedEventIds.includes(ev.id) ? 'Already Applied' : 'Apply'}
+                    {appliedEventIds.includes(ev.id) ? 'Déjà postulé' : 'Postuler'}
                   </button>
                 </Card.Body>
               </Card>
@@ -175,10 +181,10 @@ function Events() {
           ))}
         </Row>
       ) : (
-        <p className="text-center">No events found.</p>
+        <p className="text-center">Aucun événement trouvé.</p>
       )}
 
-      {/* Application Modal */}
+      {/* Formulaire modal de candidature */}
       {selectedEvent && (
         <div style={{
           position: 'fixed',
@@ -188,11 +194,11 @@ function Events() {
           zIndex: 1000
         }}>
           <div style={{ background: '#fff', padding: '2rem', borderRadius: '8px', width: '400px' }}>
-            <h2>Apply for {selectedEvent.title}</h2>
+            <h2>Postuler pour {selectedEvent.title}</h2>
             <form onSubmit={handleSubmit}>
               <input
                 name="phone"
-                placeholder="Phone Number"
+                placeholder="Numéro de téléphone"
                 value={formData.phone}
                 onChange={handleChange}
                 required
@@ -200,7 +206,7 @@ function Events() {
               />
               <input
                 name="address"
-                placeholder="Address"
+                placeholder="Adresse"
                 value={formData.address}
                 onChange={handleChange}
                 required
@@ -212,12 +218,12 @@ function Events() {
                 onChange={handleChange}
                 style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }}
               >
-                <option value="credit_card">Credit Card</option>
+                <option value="credit_card">Carte bancaire</option>
                 <option value="paypal">PayPal</option>
               </select>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <button type="submit" style={{ padding: '0.5rem 1rem' }}>Submit</button>
-                <button type="button" onClick={() => setSelectedEvent(null)} style={{ padding: '0.5rem 1rem' }}>Cancel</button>
+                <button type="submit" style={{ padding: '0.5rem 1rem' }}>Soumettre</button>
+                <button type="button" onClick={() => setSelectedEvent(null)} style={{ padding: '0.5rem 1rem' }}>Annuler</button>
               </div>
             </form>
           </div>

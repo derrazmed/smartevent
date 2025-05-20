@@ -60,6 +60,19 @@ namespace SmartEvent.API.Controllers
 
             return Ok(applications);
         }
+        [HttpDelete("cancel")]
+        public async Task<IActionResult> CancelApplication([FromQuery] int userId, [FromQuery] int eventId)
+        {
+            var application = await _context.EventApplication
+                .FirstOrDefaultAsync(a => a.UserId == userId && a.EventId == eventId);
 
+            if (application == null)
+                return NotFound("Application not found.");
+
+            _context.EventApplication.Remove(application);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
