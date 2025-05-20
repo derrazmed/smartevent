@@ -98,6 +98,8 @@ SmartEvent est une application web complète permettant la gestion, la création
    ```bash
     npm run dev
 
+---
+
 ## 🧩 Technologies Utilisées
 
 ### 🖥️ Backend
